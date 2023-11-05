@@ -1,0 +1,41 @@
+.forms{
+    background-color: rgba(240, 248, 255,0.75);
+    width: 500px;
+    height: 500px;
+    margin: auto;
+    margin-top: 10vh;
+    border-radius: 10px;
+    box-shadow: 0 0 20px black;
+}
+.forms label{
+    display: inline-block;
+    margin: 3%;
+    font-size: 200%;
+    font-weight: 600;
+    color: #EBA400;
+}
+.input img{
+    margin: 0 4%;
+}
+.input{
+    display: flex;
+    align-items: auto; /* to autoalign elemants in div */
+    margin: auto;
+    margin-bottom: 5%;
+    width: 50%;
+    height: 3vh;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+.input input{
+    font-size: medium;
+    width: 100%;
+    background: transparent;
+    border: none;
+}
+.input:hover{
+    background-color: rgba(255, 255, 255, 0.5);
+}
+.loginError{
+    color: red !important;
+}

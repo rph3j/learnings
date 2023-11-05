@@ -1,0 +1,12 @@
+.exorcise{
+    display: inline-block;
+    width: 75%;
+    height: 100%;
+}
+.sideBar{
+    display: inline-block;
+    width: 20%;
+    height: 100%;
+    box-shadow: 7px 0px 7px -2px black;
+    background-color: rgba(240, 248, 255, 0.13);
+}

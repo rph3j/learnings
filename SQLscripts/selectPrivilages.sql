@@ -1,0 +1,1 @@
+SELECT users.*, privilages.TYPE FROM users LEFT JOIN userPrivilages on users.id = userprivilages.id_u LEFT JOIN privilages ON userprivilages.id_p = privilages.id_p;   

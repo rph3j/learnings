@@ -1,0 +1,17 @@
+.controlBar{
+    width: 100vw;
+    height: 7vh;
+    background-color: #524831;
+    color: #EBA400;
+    text-align: center;
+}
+
+.content{
+    width: 100vw;
+    height: 90vh;
+}
+.footer{
+    width: 100vw;
+    height: 3vh;
+    background-color: #333029;
+}
