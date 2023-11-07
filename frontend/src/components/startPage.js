@@ -8,6 +8,8 @@ import "./general.css"
 import teacher from "../icons/teacher.png"
 import admin from "../icons/admin.png"
 import student from "../icons/students.png"
+import logOut from "../icons/logout.png"
+import back from "../icons/return.png"
 /*==============================================================================
 Kalasa ktora renderuje główny panel wyboru podstorn                          ===
 Powyrzej zasały zaimportowane scierki do podstoron oraz potrzxebne biblioteki===
@@ -24,11 +26,13 @@ class startPage extends React.Component{
             isStudents: false,
             isAdministrator: false,
             isPanelSelected: true,
-            option: 0
+            option: 0,
+            accessDenied: ""
         }
     }
 /* funkcja która się wywołuje po wczytaniu widoku */
     componentDidMount(){
+        console.log(this.state.email)
         this.feachData();
     }
 /* funkcja która zaczytuje dane z bazy i układa je w odpowidznich polach statusu (state) */
@@ -52,6 +56,7 @@ class startPage extends React.Component{
             });
             /* jednroazowe zczytanie danych o urzytkoniku oraz zapisanie ich do state */
             let rows = {
+                id: res.data[0].ID,
                 userName:  res.data[0].NAME,
                 surname: res.data[0].SURNAME,
                 email: res.data[0].EMAIL
@@ -64,7 +69,10 @@ class startPage extends React.Component{
 /* funkcja generująca przycisk powrotu do panelu głównego */
     generateExitButton = () =>{
         if(!this.state.isPanelSelected){
-            return(<button onClick={ () => { this.setState({ isPanelSelected: true }) } }>X</button>)
+            return(<button className="BT" onClick={ () => { this.setState({ isPanelSelected: true }) 
+                                                            this.setState({accessDenied: ""})} }>
+                <img src={back} alt="return icon"></img>    
+            </button>)
         }else{
             return;
         }
@@ -102,21 +110,24 @@ class startPage extends React.Component{
                     </div>
                     <span>Administrator</span>
                 </div>
-                <div className="spacing"></div>
+                <div className="spacing">
+                    <span className="alert" >{this.state.accessDenied}</span>
+                </div>
             </div>
         )
     }
 /* funkcja pokazująca odpowiednią podstorne po wyborze  */
     showPanl = () => {
         if(this.state.option === 1 && this.state.isStudents){
-            return(<div> <StudentPanel user={this.state.rows} exit={this.onExit}/> </div>)
+            return(<StudentPanel user={this.state.rows} exit={this.onExit}/>)
         }else if(this.state.option === 2 && this.state.isTeachr){
             return(<div> <TeacherPanel user={this.state.rows} exit={this.onExit}/> </div>)
         }else if(this.state.option === 3 && this.state.isAdministrator){
             return(<div> <AdminPanel user={this.state.rows} exit={this.onExit}/> </div>)
         }else{
             this.setState({isPanelSelected: true})
-            alert("Nie masz dostępu do tego panelu!")
+            this.setState({accessDenied: "Nie masz dostępu do tego panelu!"})
+
         }
     }
 /* Główna funkcja renderująca */
@@ -124,9 +135,11 @@ class startPage extends React.Component{
         return(
             <div className="container">
                 <div className="controlBar">
-                    Urzytkonik: {this.state.rows.userName} {this.state.rows.surname}.
+                    <span className="user">Urzytkonik: {this.state.rows.userName} {this.state.rows.surname}.</span>
+                    <button className="BT" onClick={ () => this.logOutHandler() }>
+                        <img src={logOut} alt="log out icon"></img>
+                    </button>
                     {this.generateExitButton()}
-                    <button onClick={ () => this.logOutHandler() }>LOG OUT</button>
                 </div>
                 {this.state.isPanelSelected ? this.selectPanelHandler() : this.showPanl()}
                 <div className="footer"></div>
