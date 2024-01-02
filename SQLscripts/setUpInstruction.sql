@@ -15,5 +15,5 @@ GRANT ALL ON learnings.* TO DBcon@localhost;
 /* exit from mariadb terminal*/
 
 /* import data from file */
-/* mysql -u DBcon -p learnings < laernings.sql */
+/* mysql -u DBcon -p learnings < learnings.sql */
 /* WORNING! learnings.sql is containing in SQLscripts folder. Make sure you are in this folder when you run this comand or change the path*/

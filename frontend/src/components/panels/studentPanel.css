@@ -28,6 +28,25 @@
     background-color: rgb(240, 248, 255);
     box-shadow: 0 0 20px black;
 }
+/* class to positioning div contain task content */
+.taskContent{
+    margin: 4%;
+}
+.topMargin{
+    margin: 4%;
+    width: 30%;
+    height: 0.5%;
+}
+.taskPng{
+    width: 20vw;
+    height: 20vh;
+    margin-bottom: 5vh;
+}
+.taskPng > img{
+    width: 100%;
+}
+/* end of strange class naming... I think ;P */
+
 .close{
     display: block;
     text-align: center;
@@ -40,6 +59,9 @@
     border-radius: 5px;
     background-color: rgba(219, 38, 38, 0.959);
 }
+.close > img{
+    width: 100%;
+}
 .close:hover{
     background-color: rgb(255, 0, 0);
     box-shadow: 0 0 10px black;
@@ -50,6 +72,8 @@
     margin: auto;
     border-radius: 50px;
     box-shadow: 0 0 10px black;
+    background-color: #524831bd;
+    font-size: medium;
 }
 .openTask > img{
     width: 100%;

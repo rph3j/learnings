@@ -51,18 +51,18 @@ class SingUp extends React.Component {
             <div className='container'>
                 <div className='forms'>
                     <form onSubmit={this.hendlerSubmit}>
-                        <label>Sing Up</label>
+                        <label>Logowanie</label>
                         <div className='input'>
                             <img src={emailIcon} alt='email icon'/>
                             <input type='email' placeholder='email' onChange={this.emailChangeHendler} />
                         </div>
                         <div className='input'>
                             <img src={passwordIcon} alt='email icon'/>
-                            <input type="password" placeholder='password' onChange={this.passwordChangeHendler}/>
+                            <input type="password" placeholder='hasło' onChange={this.passwordChangeHendler}/>
                         </div>
                         <div className='input'>
                             <img src={loginIcon} alt='submitIcon'/>
-                            <input type='submit' value={"SingUp"}/>
+                            <input type='submit' value={"Zaloguj"}/>
                         </div>
                     </form>
                     <label className='loginError'>{this.state.errorLogIn}</label>

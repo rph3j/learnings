@@ -11,13 +11,14 @@ class studentPanel extends React.Component{
 
         this.state = {
             tasks: [],
-            task: "",
+            task: "6+12",
             answer: "",
             user: props.user,
             taskType: "add",
             isOpen: false,
             taskNymber: 0,
-            answerValue: 0
+            answerValue: 0,
+            taskID: 0
         };
         this.changeHandler = this.changeHandler.bind(this);
     }
@@ -37,13 +38,25 @@ class studentPanel extends React.Component{
 
     handlerRadio = (event) =>{
         this.setState({ taskType: event.target.value });
+        switch(event.target.value){
+            case "sub":
+                this.setState({ task: "22-6" });
+            break;
+            case "multi":
+                this.setState({ task: "4X5" });
+            break;
+            case "add":
+                this.setState({ task: "6+12" });
+            break;
+        }
     }
 
-    openModal = (i,task,answer) =>{
+    openModal = (i,task,answer,id) =>{
         this.setState({ isOpen: true});
         this.setState({ taskNymber: i });
         this.setState({ task });
         this.setState({ answer })
+        this.setState({ taskID: id })
     }
 
     closeModal = () => {
@@ -55,18 +68,17 @@ class studentPanel extends React.Component{
     }
 
     handlerSubmit = (event) =>{
-        let tID = this.state.taskNymber + 1;
         if(this.state.answerValue === this.state.answer)
         {
             axios.post("http://localhost:3001/api/postAnswer",{
                 userID: this.state.user.id,
-                taskID: tID,
+                taskID: this.state.taskID,
                 answer: true
              })
         }else{
             axios.post("http://localhost:3001/api/postAnswer",{
                 userID: this.state.user.id,
-                taskID: tID,
+                taskID: this.state.taskID,
                 answer: false
              })
         }
@@ -83,12 +95,18 @@ class studentPanel extends React.Component{
             <div className="close" onClick={ () => this.closeModal() }>
                 <img src={close} alt="close icon"></img>
             </div>
-            <h1>Podaj poprawny wynik: </h1>
-            <p>{this.state.task}</p>
-            <form onSubmit={(e) => this.handlerSubmit(e)}>
-                <input type="number" value={this.state.answerValue} onChange={(e) => this.changeHandler(e)}></input>
-                <input type="submit"></input>
-            </form>
+            <div className="topMargin"></div>
+            <div className="taskContent">
+                <h1>Podaj poprawny wynik: </h1>
+                <div className="taskPng">
+                    <img src={require("../../tasksPictures/"+this.state.taskType+"/"+this.state.task+".png")} alt="task picture" />
+                </div>
+                <p>{this.state.task}</p>
+                <form onSubmit={(e) => this.handlerSubmit(e)}>
+                    <input type="number" value={this.state.answerValue} onChange={(e) => this.changeHandler(e)}></input>
+                    <input type="submit" value={"Prześlij"} />
+                </form>
+            </div>
         </Modal>)
     }
     renderTasks = () => {
@@ -98,7 +116,7 @@ class studentPanel extends React.Component{
                 if(task.type === this.state.taskType){
                     iterator++
                     return(
-                        <div className="task" key={i} onClick={ () =>this.openModal(i,task.task, task.answer) }>zadanie {iterator}</div>
+                        <div className="task" key={i} onClick={ () =>this.openModal(i,task.task, task.answer, task.id) }>zadanie {iterator}</div>
                     )
                 }else{
                     return(<span></span>);

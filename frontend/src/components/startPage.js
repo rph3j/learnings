@@ -135,7 +135,7 @@ class startPage extends React.Component{
         return(
             <div className="container">
                 <div className="controlBar">
-                    <span className="user">Urzytkonik: {this.state.rows.userName} {this.state.rows.surname}.</span>
+                    <span className="user">Użytkonik: {this.state.rows.userName} {this.state.rows.surname}.</span>
                     <button className="BT" onClick={ () => this.logOutHandler() }>
                         <img src={logOut} alt="log out icon"></img>
                     </button>
