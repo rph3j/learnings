@@ -3,6 +3,7 @@ const pool = require('./dbConection.js');
 
 class dbRequeast
 {
+    // funkcja sprawdzająca czy dany yżytkonk istnieje. Zwraca true jeżeli został znależiony uzytkonik i chasło jest takie jak w bazie
     async LogIn(req,res){
         try {
             const {email,password} = req.body;
@@ -34,7 +35,7 @@ class dbRequeast
             res.status(400).send(error.message)
         }
     }
-
+    // zwraca pełne donae danego urzytkonika
     async getFullData(req,res){
         const e = req.body.email;
         console.log(e);
@@ -50,7 +51,7 @@ class dbRequeast
             }
         })
     }
-
+    // zwraca listę wszstkich zadań. Ich odpowiednim wyśwotelniem zajmuje się forntend
     async getTasks(req,res){
         const type = req.body.type;
         //console.log(type);
@@ -66,7 +67,10 @@ class dbRequeast
             }
         })
     }
-
+    // przyjmuje odpowiedź do zadania (czy było dobra czy zła) i zapisuje ją do tabeli userAnswer zawirającą:
+    // id -> użytkonika
+    // id -> zadania
+    // odpowiedź (czy poprwana czy nie)
     async postAnswer(req,res){
         const userID = req.body.userID;
         const taskID = req.body.taskID;
@@ -83,7 +87,7 @@ class dbRequeast
             }
         })
     }
-
+    // zwraca listę wszstkich studętów. Używane w panelu nauczycila
     async getStudentsLists(req,res){
         const sql = "SELECT users.*, privilages.TYPE FROM users LEFT JOIN userprivilages on users.id = userprivilages.id_u LEFT JOIN privilages ON userprivilages.id_p = privilages.id_p WHERE type='S'";
         pool.query(sql,(err,rows) => {
@@ -95,7 +99,7 @@ class dbRequeast
             }
         })
     }
-    
+    // zwraca wszstkie wyniku ucznia
     async getStudnetsResult(req,res){
         const userID = req.body.userID;
         const sql = "SELECT tasks.*,userAnswers.answer as result,userAnswers.postDate as date FROM tasks LEFT JOIN userAnswers ON tasks.id = userAnswers.taskID WHERE userAnswers.userID = ?";
@@ -108,11 +112,11 @@ class dbRequeast
             }
         })
     }
-
+    // towry uzytkonika nie wykorzystana nie utowrzona po porstu relikt pierowtnego planu.
     async createUser(req,res){
         console.log("Nic tu na razie nie ma");
         res.status(201).send("Nic tu na razie nie ma");
     }
 }
-
+// wyeksportownaie całej kalsy przez to mogę sobię cały plik zaimportować do miennej w api.js i spokojnie z tego kodu korzystać.
 module.exports = new dbRequeast();
